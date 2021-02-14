@@ -10,28 +10,6 @@ function writePassword() {
 
 }
 
-// finds character ASCII to Decimal values
-const charArray = [];
-const upperCaseChars = masterArray(65, 90);
-const lowerCaseChars = masterArray(97, 122);
-const numericChars = masterArray(48, 57);
-
-const specialChars = masterArray(33, 47)
-//.concat adds additional arrays 
- .concat(masterArray(58, 64))
- .concat(masterArray(91, 96))
- .concat(masterArray(123, 126));
-
-
- //creates an array of numbers ranging from smallest to largest based on what is called in
- function masterArray(small, large){
-  const array = [];
-  for (let i = small; i <= large; i++) {
-    array.push(i);
-  }
-  return array;
-}
-
 
 // generates random password based on user preferences
 function generatePassword(){
@@ -58,20 +36,50 @@ function generatePassword(){
     var specialChar = confirm("Do you want special characters?");
   }
 
+  // finds character ASCII Decimal values
+  var charArray = [];
+  var upperCaseChars = masterArray(65, 90);
+  var lowerCaseChars = masterArray(97, 122);
+  var numericChars = masterArray(48, 57);
+
+  var specialChars = masterArray(33, 47)
+  //.concat adds additional arrays 
+  .concat(masterArray(58, 64))
+  .concat(masterArray(91, 96))
+  .concat(masterArray(123, 126));
+
+
+ //creates an array of numbers (representing characters in Ascii) ranging from smallest to largest one at a time
+ function masterArray(beginning, end){
+  let array = [];
+  for (let i = beginning; i <= end; i++) {
+    array.push(i);
+  }
+  return array;
+  }
+
   //remembers user preferences and smashes them together into a final array
   var acceptedChars = charArray;
-  if (lowerCase) acceptedChars = acceptedChars.concat(lowerCaseChars);
-  if (upperCase) acceptedChars = acceptedChars.concat(upperCaseChars);
-  if (numeric) acceptedChars = acceptedChars.concat(numericChars);
-  if (specialChar) acceptedChars = acceptedChars.concat(specialChars);
+  if (lowerCase) {
+  acceptedChars = acceptedChars.concat(lowerCaseChars);
+  }
+  if (upperCase) {
+  acceptedChars = acceptedChars.concat(upperCaseChars);
+  }
+  if (numeric) {
+  acceptedChars = acceptedChars.concat(numericChars);
+  }   
+  if (specialChar) {
+  acceptedChars = acceptedChars.concat(specialChars);
+  }
   if (!lowerCase && !upperCase && !numeric && !specialChar){
     return;
   }
-  const passwordChars = [];
+  var passwordChars = [];
 
   // continues generating characters that meet the users preferences one at a time until reaches character length
   for (let i = 0; i < charLength; i++) {
-    const finalPassword =
+    var finalPassword =
       acceptedChars[Math.floor(Math.random() * acceptedChars.length)];
     passwordChars.push(String.fromCharCode(finalPassword));
   }
